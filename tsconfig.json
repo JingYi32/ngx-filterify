@@ -16,6 +16,11 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
+    "paths": {
+      "tagify-filter-bar": [
+        "./dist/tagify-filter-bar"
+      ]
+    },
     "module": "ES2022"
   },
   "angularCompilerOptions": {

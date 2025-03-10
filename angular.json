@@ -3,5 +3,138 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "tagify-filter-bar": {
+      "projectType": "library",
+      "root": "projects/tagify-filter-bar",
+      "sourceRoot": "projects/tagify-filter-bar/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/tagify-filter-bar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tagify-filter-bar/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/tagify-filter-bar/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/tagify-filter-bar/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "filter-test-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/filter-test-app",
+      "sourceRoot": "projects/filter-test-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/filter-test-app",
+            "index": "projects/filter-test-app/src/index.html",
+            "browser": "projects/filter-test-app/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/filter-test-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/filter-test-app/public"
+              }
+            ],
+            "styles": [
+              "projects/filter-test-app/src/styles.scss"
+            ],
+            "scripts": [],
+            "server": "projects/filter-test-app/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "projects/filter-test-app/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "filter-test-app:build:production"
+            },
+            "development": {
+              "buildTarget": "filter-test-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/filter-test-app/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/filter-test-app/public"
+              }
+            ],
+            "styles": [
+              "projects/filter-test-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }
